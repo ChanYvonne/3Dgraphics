@@ -8,7 +8,13 @@ def add_box( points, x, y, z, width, height, depth ):
 def add_sphere( points, cx, cy, cz, r, step ):
     pass
 def generate_sphere( points, cx, cy, cz, r, step ):
-    pass
+    n = int(1/step)
+    count = 0
+    t = 0
+    while count <= n:
+        t = count/n
+        x = r*math.cos(2*math.pi*t)
+        count +=1
 
 def add_torus( points, cx, cy, cz, r0, r1, step ):
     pass
