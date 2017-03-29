@@ -175,19 +175,6 @@ def draw_line( x0, y0, x1, y1, screen, color ):
 #end draw_line
 
 '''
-box
-0 0 0 200 100 400
-ident
-rotate
-x 20
-rotate
-y 20
-move
-150 200 0
-apply
-display
-#clear the edge matrix, test the sphere
-clear
 
 #rotate 90 degrees about y to check lines
 ident

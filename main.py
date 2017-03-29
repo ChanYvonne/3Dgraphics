@@ -5,7 +5,7 @@ from matrix import *
 import math
 
 screen = new_screen()
-color = [ 0, 255, 0 ]
+color = [ 0, 255, 255 ]
 edges = []
 transform = new_matrix()
 
@@ -51,7 +51,7 @@ The file follows the following format:
 
 See the file script for an example of the file format
 """
-ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite' ]
+ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite', 'sphere', 'torus', 'box' ]
 
 def parse_file( fname, edges, transform, screen, color ):
 
@@ -68,6 +68,22 @@ def parse_file( fname, edges, transform, screen, color ):
             c+= 1
             args = lines[c].strip().split(' ')
 
+        if line == 'clear':
+            clear_screen(screen)
+            edges = []
+
+        if line == 'sphere':
+            add_sphere(edges, float(args[0]), float(args[1]), float(args[2]),
+                       float(args[3]), step)
+            
+        if line == 'torus':
+            add_torus(edges, float(args[0]), float(args[1]), float(args[2]),
+                       float(args[3]), float(args[4]), step)
+
+        if line == 'box':
+            add_box(edges, float(args[0]), float(args[1]), float(args[2]),
+                       float(args[3]), float(args[4]), float(args[5])) 
+        
         if line == 'circle':
             #print 'CIRCLE\t' + str(args)
             add_circle(edges,
@@ -123,9 +139,9 @@ def parse_file( fname, edges, transform, screen, color ):
             draw_lines(edges, screen, color)
 
             if line == 'display':
-                display(screen)
+                save_ppm(screen,'pic.ppm')
             else:
-                save_extension(screen, args[0])
+                save_ppm(screen,args[0])
             
         c+= 1
 
