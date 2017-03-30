@@ -3,6 +3,19 @@ from matrix import *
 from math import *
 
 def add_box( points, x, y, z, width, height, depth ):
+    add_edge( points, x, y, z, x, y, z) 
+    add_edge( points, x, y, z, x+1, y, z)
+    add_edge( points, x+width, y, z, x+width+1, y, z)
+    add_edge( points, x, y-height, z, x, y-height-1, z)
+    add_edge( points, x, y, z-depth, x, y, z-depth-1)
+    add_edge( points, x+width, y, z-depth, x+width+1, y, z-depth-1)
+    add_edge( points, x+width, y-height, z, x+width+1, y-height-1, z)
+    add_edge( points, x, y-height, z-depth, x, y-height-1, z-depth-1)
+    add_edge( points, x+width, y-height, z-depth, x+width+1, y-height-1, z-depth-1)
+
+    #double amount of dots to make it more visible
+
+    add_edge( points, x, y, z, x, y, z) 
     add_edge( points, x, y, z, x+1, y, z)
     add_edge( points, x+width, y, z, x+width+1, y, z)
     add_edge( points, x, y-height, z, x, y-height-1, z)
