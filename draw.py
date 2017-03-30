@@ -13,7 +13,7 @@ def add_box( points, x, y, z, width, height, depth ):
     add_edge( points, x+width, y-height, z-depth, x+width+1, y-height-1, z-depth-1)
     
 def add_sphere( points, cx, cy, cz, r, step ):
-    edges = generate_sphere(points, cx, cy, cz, r, step)
+    edges = generate_sphere([], cx, cy, cz, r, step)
     #print edges
     points.extend(edges)
     
@@ -27,11 +27,11 @@ def generate_sphere( points, cx, cy, cz, r, step ):
             y = r*math.sin(math.pi*circ)*math.cos(2*math.pi*rot) + cy
             z = r*math.sin(math.pi*circ)*math.sin(2*math.pi*rot) + cz
             #print [x, y, z]
-            add_edge(points, x, y, z, x, y, z)
+            add_edge(points, x, y, z, x+1, y+1, z+1)
     return points
 
 def add_torus( points, cx, cy, cz, r0, r1, step ):
-    edges = generate_torus(points, cx, cy, cz, r0, r1, step)
+    edges = generate_torus([], cx, cy, cz, r0, r1, step)
     #print edges
     points.extend(edges)
 
@@ -43,9 +43,9 @@ def generate_torus( points, cx, cy, cz, r0, r1, step ):
             circ = k/float(n)
             x = math.cos(2*math.pi*rot)*(r0*math.cos(2*math.pi*circ)+ r1) + cx
             y = r0*math.sin(2*math.pi*circ) + cy
-            z = (-1)*math.sin(2*math.pi*rot)*(r0*math.cos(2*math.pi*circ)+r1) + cz
+            z = -math.sin(2*math.pi*rot)*(r0*math.cos(2*math.pi*circ)+r1) + cz
             #print [x, y, z]
-            add_edge(points, x, y, z, x, y, z)
+            add_edge(points, x, y, z, x+1, y+1, z+1)
     return points
 
 def add_circle( points, cx, cy, cz, r, step ):
