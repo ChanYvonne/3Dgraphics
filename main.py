@@ -69,7 +69,6 @@ def parse_file( fname, edges, transform, screen, color ):
             args = lines[c].strip().split(' ')
 
         if line == 'clear':
-            clear_screen(screen)
             edges = []
 
         if line == 'sphere':
@@ -132,6 +131,8 @@ def parse_file( fname, edges, transform, screen, color ):
             ident(transform)
 
         elif line == 'apply':
+            #print_matrix(edges)
+            #print_matrix(transform)
             matrix_mult( transform, edges )
 
         elif line == 'display' or line == 'save':

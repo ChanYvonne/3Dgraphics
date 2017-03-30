@@ -15,11 +15,10 @@ def add_box( points, x, y, z, width, height, depth ):
 def add_sphere( points, cx, cy, cz, r, step ):
     edges = generate_sphere(points, cx, cy, cz, r, step)
     #print edges
-    for p in edges:
-        add_edge(points, p[0], p[1], p[2], p[0]+1, p[1]+1, p[2]+1)
+    points.extend(edges)
     
 def generate_sphere( points, cx, cy, cz, r, step ):
-    n = int(1.0/step)
+    n = int(1/step)
     for count in range(n):
         rot = count/float(n)
         for k in range(n):
@@ -28,13 +27,26 @@ def generate_sphere( points, cx, cy, cz, r, step ):
             y = r*math.sin(math.pi*circ)*math.cos(2*math.pi*rot) + cy
             z = r*math.sin(math.pi*circ)*math.sin(2*math.pi*rot) + cz
             #print [x, y, z]
-            points.append([x, y, z])
+            add_edge(points, x, y, z, x, y, z)
     return points
 
 def add_torus( points, cx, cy, cz, r0, r1, step ):
-    pass
+    edges = generate_torus(points, cx, cy, cz, r0, r1, step)
+    #print edges
+    points.extend(edges)
+
 def generate_torus( points, cx, cy, cz, r0, r1, step ):
-    pass
+    n = int(1/step)
+    for count in range(n):
+        rot = count/float(n)
+        for k in range(n):
+            circ = k/float(n)
+            x = math.cos(2*math.pi*rot)*(r0*math.cos(2*math.pi*circ)+ r1) + cx
+            y = r0*math.sin(2*math.pi*circ) + cy
+            z = (-1)*math.sin(2*math.pi*rot)*(r0*math.cos(2*math.pi*circ)+r1) + cz
+            #print [x, y, z]
+            add_edge(points, x, y, z, x, y, z)
+    return points
 
 def add_circle( points, cx, cy, cz, r, step ):
     x0 = r + cx
@@ -174,90 +186,3 @@ def draw_line( x0, y0, x1, y1, screen, color ):
     #end octants 2 and 7
 #end draw_line
 
-'''
-box
-0 0 0 200 100 400
-ident
-rotate
-x 20
-rotate
-y 20
-move
-150 200 0
-apply
-display
-#clear the edge matrix, test the sphere
-clear
-
-#rotate 90 degrees about y to check lines
-ident
-rotate
-y 90
-move
-250 250 0
-apply
-display
-#reset sphere, rotate 90 degrees about x to check lines
-ident
-move
--250 -250 0
-rotate
-y -90
-rotate
-x 90
-move
-250 250 0
-apply
-display
-#reset sphere, rotate to make it look cool
-ident
-move
--250 -250 0
-rotate
-x -60
-rotate
-y 20
-rotate
-z 70
-move
-250 250 0
-apply
-display
-#clear the edge matrix, test torus
-clear
-torus
-0 0 0 25 150
-display
-#rotate 90 degrees about y to check lines
-ident
-rotate
-y 90
-move
-250 250 0
-apply
-display
-#reset torus, rotate 90 degrees about x to check lines
-ident
-move
--250 -250 0
-rotate
-y -90
-rotate
-x 90
-move
-250 250 0
-apply
-display
-#reset torus, rotate to make it look cool
-ident
-move
--250 -250 0
-rotate
-x 70
-rotate
-y 20
-move
-250 250 0
-apply
-display
-'''
